@@ -3,6 +3,7 @@ using Notes.Application.Common.Mapping;
 using Notes.Application.Notes.Commands.CreateNode;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,7 +11,9 @@ namespace Notes.WebApi2.Models
 {
     public class CreateNoteDto : IMapWith<CreateNoteCommand>
     {
+        
         public string Details { get; set; }
+       [Required]
         public string Title { get; set; }
 
         public void Mapping(Profile profile)

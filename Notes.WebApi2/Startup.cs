@@ -13,6 +13,7 @@ using Notes.Application.Interfases;
 using Notes.Application;
 using Notes.Persistence;
 using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace Notes.WebApi2
 {
@@ -44,6 +45,13 @@ namespace Notes.WebApi2
                      policy.AllowAnyOrigin();
                  });
             });
+
+            services.AddSwaggerGen(config =>
+            {
+                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                //config.IncludeXmlComments(xmlPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +62,13 @@ namespace Notes.WebApi2
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(config =>
+            {
+                config.RoutePrefix = string.Empty;
+                config.SwaggerEndpoint("swagger/v1/swagger.json", "Notes API");
+            });
+            app.UseDeveloperExceptionPage();
             app.UseRouting();
             app.UseHttpsRedirection();
             app.UseCors("AllowAll");
